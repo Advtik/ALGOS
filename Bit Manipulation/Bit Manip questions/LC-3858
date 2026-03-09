@@ -1,0 +1,45 @@
+//Minimum Bitwise OR From Grid
+class Solution {
+public:
+    int minimumOR(vector<vector<int>>& grid) {
+        int n=grid.size();
+        int m=grid[0].size();
+        int ans=0;
+        vector<vector<int>>visit(n,vector<int>(m,0));
+        for(int i=20;i>=0;i--){
+            int temp=0;
+            int nums=0;
+            int p=(1<<i);
+            int cnt=0;
+            for(int row=0;row<n;row++){
+                for(int col=0;col<m;col++){
+                    if(visit[row][col]){
+                        continue;
+                    }
+                    if((grid[row][col]&p)!=p){
+                        cnt++;
+                        break;
+                    }
+                }
+            }
+            if(cnt>=n){
+                for(int row=0;row<n;row++){
+                    for(int col=0;col<m;col++){
+                        if((grid[row][col]&p)==p){
+                            visit[row][col]=1;
+                        }
+                    }
+                }
+            }
+            
+        }
+        for(int row=0;row<n;row++){
+            for(int col=0;col<m;col++){
+                if(!visit[row][col]){
+                    ans|=grid[row][col];
+                }
+            }
+        }
+        return ans;
+    }
+};
